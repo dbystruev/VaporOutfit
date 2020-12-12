@@ -7,7 +7,7 @@ Re-write of [Get Outfit](https://getoutfit.ru) [Server](https://github.com/dbyst
   docker run -p8080:8080 -it --name VaporOutfit -w/VaporOutfit swift bash
   git clone https://github.com/dbystruev/VaporOutfit.git .
   apt update && apt -y upgrade
-  apt -y install openssl libssl-dev libmysqlclient-dev libcurl4-openssl-dev vim
+  apt -y install curl libcurl4-openssl-dev libmysqlclient-dev libssl-dev openssl psmisc sudo vim
   exit
   ```
 
@@ -15,5 +15,5 @@ Re-write of [Get Outfit](https://getoutfit.ru) [Server](https://github.com/dbyst
     ```bash
     docker start VaporOutfit
     docker exec -it VaporOutfit bash
-    swift run # -c release # if needed
+    swift run Run serve --hostname 0.0.0.0 --port 8080
     ```
