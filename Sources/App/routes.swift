@@ -2,17 +2,22 @@ import Vapor
 
 func routes(_ app: Application) throws {
     app.get { req in
-        return "It works!"
+        return "Try to use /offers"
     }
     
-    let hello = app.grouped("hello")
-
-    hello.get { req -> String in
-        return "Hello, world!"
-    }
-    
-    hello.get(":name") { req -> String in
-        guard let name = req.parameters.get("name") else { return "Hello!" }
-        return "Hello, \(name)!"
+    // MARK: - Offers
+    app.group("offers") { offers in
+        // GET /offers
+        offers.get { req in
+            return "GET /offers"
+        }
+        
+        offers.group(":id") { offer in
+            // GET /offers/:id
+            offer.get { req -> String in
+                let id = req.parameters.get("id") ?? "nil"
+                return "GET /offers/\(id)"
+            }
+        }
     }
 }
