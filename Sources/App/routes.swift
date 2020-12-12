@@ -8,16 +8,11 @@ func routes(_ app: Application) throws {
     // MARK: - Offers
     app.group("offers") { offers in
         // GET /offers
-        offers.get { req in
-            return "GET /offers"
-        }
-        
-        offers.group(":id") { offer in
-            // GET /offers/:id
-            offer.get { req -> String in
-                let id = req.parameters.get("id") ?? "nil"
-                return "GET /offers/\(id)"
-            }
+        offers.get { req -> String in
+            // Try to decode offer query
+            let offer = try req.query.decode(OffersQuery.self)
+            
+            return "GET /offers?id=\(offer.id)"
         }
     }
 }
