@@ -4,12 +4,14 @@ func routes(_ app: Application) throws {
     app.get { req in
         return "It works!"
     }
+    
+    let hello = app.grouped("hello")
 
-    app.get("hello") { req -> String in
+    hello.get { req -> String in
         return "Hello, world!"
     }
     
-    app.get("hello", ":name") { req -> String in
+    hello.get(":name") { req -> String in
         guard let name = req.parameters.get("name") else { return "Hello!" }
         return "Hello, \(name)!"
     }
